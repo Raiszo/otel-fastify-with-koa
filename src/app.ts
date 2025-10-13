@@ -2,15 +2,20 @@ import Fastify from 'fastify'
 import type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 import { Type } from 'typebox'
 import { MongoClient, ObjectId } from 'mongodb'
-import { BookRepo, type Book } from './db.ts'
+import { BookRepo } from './db.ts'
 
 const app = Fastify({
 	logger: true
 }).withTypeProvider<TypeBoxTypeProvider>()
 
-const client = new MongoClient()
+const client = new MongoClient(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`, {
+	auth: {
+		username: process.env.DB_USER,
+		password: process.env.DB_PASS,
+	},
+})
 
-const db = client.db('myapp')
+const db = client.db(process.env.DB_NAME)
 const book_repo = new BookRepo(db)
 
 app.post('/book', {
