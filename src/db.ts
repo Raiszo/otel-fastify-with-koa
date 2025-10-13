@@ -1,19 +1,19 @@
-import { Collection, Db, MongoClient, ObjectId } from "mongodb";
+import { Collection, Db, ObjectId } from "mongodb";
 
 export type Book = {
-	_id: ObjectId
-	title: string
-	author: string
-}
+	_id: ObjectId;
+	title: string;
+	author: string;
+};
 
 export class BookRepo {
-	readonly #col: Collection<Book>
+	readonly #col: Collection<Book>;
 
 	constructor(db: Db) {
-		this.#col = db.collection('books')
+		this.#col = db.collection("books");
 	}
 
 	async insertBook(book: Book) {
-		await this.#col.insertOne(book)
+		await this.#col.insertOne(book);
 	}
 }
