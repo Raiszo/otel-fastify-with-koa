@@ -30,10 +30,21 @@ app.post(
 				200: Type.Object({
 					message: Type.String(),
 				}),
+				409: Type.Object({
+					message: Type.String(),
+					code: Type.Enum(["TitleAlreadyExistsError"]),
+				}),
 			},
 		},
 	},
 	async (request, reply) => {
+		if (await book_repo.existingTitle(request.body.title)) {
+			return reply.status(409).send({
+				message: "Title already exists",
+				code: "TitleAlreadyExistsError",
+			});
+		}
+
 		await book_repo.insertBook({
 			_id: new ObjectId(),
 			author: request.body.author,

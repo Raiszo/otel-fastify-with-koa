@@ -13,6 +13,17 @@ export class BookRepo {
 		this.#col = db.collection("books");
 	}
 
+	async existingTitle(title: string): Promise<boolean> {
+		const existing_doc = await this.#col.findOne({
+			title,
+		}, {
+			projection: {
+				_id: 1,
+			}
+		})
+		return Boolean(existing_doc)
+	}
+
 	async insertBook(book: Book) {
 		await this.#col.insertOne(book);
 	}
