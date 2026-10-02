@@ -20,15 +20,21 @@
   "dependencies": {
     "@fastify/otel": "^0.11.0",
     "@fastify/type-provider-typebox": "^6.0.0",
+    "@koa-better-modules/joi-router": "^12.0.0",
     "@opentelemetry/instrumentation-mongodb": "^0.59.0",
     "fastify": "^5.6.1",
+    "koa": "^3.0.1",
+    "koa-body": "^6.0.1",
+    "koa-joi-router-docs-v2": "^1.5.4",
     "mongodb": "^6.20.0",
     "typebox": "^1.0.35"
   },
   "devDependencies": {
+    "@types/koa": "^3.0.0",
     "@types/node": "^22.18.10",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^5.9.3"
-  }
+  },
+  "main": "index.js"
 }
